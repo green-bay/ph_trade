@@ -1,0 +1,17 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[dev-packages]
+pytest = "*"
+pytest-sugar = "*"
+pytest-cov = "*"
+
+[packages]
+flask = "*"
+gunicorn = "==19.9.0"
+flask-restplus = "*"
+
+[requires]
+python_version = "3.6"

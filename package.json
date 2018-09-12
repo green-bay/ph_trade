@@ -1,0 +1,32 @@
+{
+  "name": "ph_trade",
+  "version": "0.0.1",
+  "private": true,
+  "description": "classifieds app for polish hemp market",
+  "scripts": {
+    "serve": "vue-cli-service serve --open",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "vue": "^2.5.17"
+  },
+  "devDepenencies": {
+    "@vue/cli-plugin-babel": "^3.0.0-beta.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/4fuss/ph_trade.git"
+  },
+  "keywords": [
+    "hemp",
+    "classifieds"
+  ],
+  "author": "fussions",
+  "license": "Beerware",
+  "bugs": {
+    "url": "https://github.com/4fuss/ph_trade/issues"
+  },
+  "homepage": "https://github.com/4fuss/ph_trade#readme"
+}
