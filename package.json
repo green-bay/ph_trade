@@ -1,32 +1,43 @@
 {
   "name": "ph_trade",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": true,
-  "description": "classifieds app for polish hemp market",
   "scripts": {
-    "serve": "vue-cli-service serve --open",
+    "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "axios": "^0.18.0",
     "vue": "^2.5.17"
   },
-  "devDepenencies": {
-    "@vue/cli-plugin-babel": "^3.0.0-beta.6"
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.0.3",
+    "@vue/cli-plugin-eslint": "^3.0.3",
+    "@vue/cli-service": "^3.0.3",
+    "vue-template-compiler": "^2.5.17"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/4fuss/ph_trade.git"
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "rules": {},
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
   },
-  "keywords": [
-    "hemp",
-    "classifieds"
-  ],
-  "author": "fussions",
-  "license": "Beerware",
-  "bugs": {
-    "url": "https://github.com/4fuss/ph_trade/issues"
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
   },
-  "homepage": "https://github.com/4fuss/ph_trade#readme"
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
 }
