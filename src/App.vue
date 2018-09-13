@@ -1,8 +1,12 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <div id="nav">
+	<router-link to="/">Tablica Ogłoszeń</router-link>
+	<router-link to="/api">Piaskownica</router-link>
+    </div>
+    <!--<HelloWorld msg="Welcome to Your Vue.js App"/>-->
+    <router-view />
+  </div><!-- app -->
 </template>
 
 <script>
