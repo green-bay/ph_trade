@@ -2,6 +2,7 @@
   <div id="app">
     <div id="nav">
 	<router-link to="/">Tablica Ogłoszeń</router-link>
+	<span> | </span>
 	<router-link to="/api">Piaskownica</router-link>
     </div>
     <!--<HelloWorld msg="Welcome to Your Vue.js App"/>-->
@@ -11,6 +12,7 @@
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
+import '@vue/ui/dist/vue-ui.css'
 
 export default {
   name: 'app',
