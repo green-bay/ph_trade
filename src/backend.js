@@ -19,6 +19,10 @@ $axios.interceptors.response.use(function(response){
 })
 
 export default {
+    fetchAds(){
+	return $axios.get('ads').
+	    then(response => response.data)
+    },
 
     fetchResource(){
 	return $axios.get('resource/xxx')
