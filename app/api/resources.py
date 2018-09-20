@@ -47,7 +47,7 @@ class ClassifiedAds(Resource):
             'publisher': post.get('publisher'),
             'image': post.get('image')
         })
-        return {'message': 'Ad added!'}, 201
+        return ADS[-1], 201
 
 
 @api_rest.route('/resource/<string:resource_id>')

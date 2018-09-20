@@ -23,7 +23,10 @@ export default {
 	return $axios.get('ads').
 	    then(response => response.data)
     },
-
+    postAd(payload){
+	return $axios.post('ads',payload).
+	    then(response => response.data)
+    },
     fetchResource(){
 	return $axios.get('resource/xxx')
 	   .then(response => response.data)
