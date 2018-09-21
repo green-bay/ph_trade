@@ -12,6 +12,13 @@ pytest-cov = "*"
 flask = "*"
 gunicorn = "==19.9.0"
 flask-restplus = "*"
+sqlalchemy = "*"
+flask-sqlalchemy = "*"
+flask-bcrypt = "*"
+flask-migrate = "*"
+flask-testing = "*"
+"psycopg2" = "*"
+pyjwt = "*"
 
 [requires]
 python_version = "3.6"
