@@ -15,10 +15,10 @@ flask-restplus = "*"
 sqlalchemy = "*"
 flask-sqlalchemy = "*"
 flask-bcrypt = "*"
-flask-migrate = "*"
-flask-testing = "*"
 "psycopg2" = "*"
 pyjwt = "*"
+python-dotenv = "*"
+flask-migrate = "*"
 
 [requires]
 python_version = "3.6"
