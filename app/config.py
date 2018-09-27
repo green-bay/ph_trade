@@ -1,5 +1,4 @@
 import os 
-from app import app 
 
 class Config(object): 
     FLASK_ENV = os.getenv('FLASK_ENV', 'production') 
@@ -10,12 +9,14 @@ class Config(object):
     DB_NAME = os.getenv('DB_NAME', 'ph_trade') 
     SQLALCHEMY_DATABASE_URI = 'postgresql://ph_trade:ph_trade@localhost/ph_trade'
     BCRYPT_LOG_ROUNDS = os.getenv('BRYCPT_LOG_ROUNDS', 12)
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
     
     if not os.path.exists(DIST_DIR): 
         raise Exception('DIST_DIR not found {}'.format(DIST_DIR)) 
 
 class ConfigTest(Config):
     DB_NAME = 'ph_trade_test'
+    SQLALCHEMY_DATABASE_URI = 'postgresql://ph_trade:ph_trade@localhost/ph_trade_test'
     BCRYPT_LOG_ROUNDS = 5
+    TESTING = True
 
-app.config.from_object('app.config.Config')
