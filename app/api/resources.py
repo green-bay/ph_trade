@@ -4,11 +4,13 @@ part of flask-restplus
 """
 
 from datetime import datetime
-from flask import request
+from flask import request, current_app
 from flask_restplus import Resource
+from app.models.models import User
 
 from .security import require_auth
 from . import api_rest
+from app.db import db,bcrypt
 
 
 class SecureResource(Resource):
@@ -69,3 +71,40 @@ class SecureResourceOne(SecureResource):
     def get(self, resource_id):
         timestamp = datetime.utcnow().isoformat()
         return {'timestamp': timestamp}
+
+@api_rest.route('/register')
+class RegisterUser(Resource):
+    def post(self):
+        post_data = request.get_json()
+        email = post_data.get('email')
+        user = User.query.filter_by(email=email).first()
+        if not user:
+            try:
+                user = User(
+                    email=email,
+                    password=post_data.get('password')
+                )
+                db.session.add(user)
+                db.session.commit()
+                auth_token = user.encode_auth_token(user.id)
+                return {'auth_token': auth_token.decode()}, 201
+            except Exception as e:
+                return {'message': e.message}, 401
+        else:
+            return {}, 202 #user exists
+
+@api_rest.route('/login')
+class LoginUser(Resource):
+    def post(self):
+        post_data = request.get_json()
+        try:
+            user = User.query.filter_by(email=post_data.get('email')).first()
+            if user and bcrypt.check_password_hash(user.password, post_data.get('password')):
+                auth_token = user.encode_auth_token(user.id)
+                if auth_token:
+                    return {'auth_token': auth_token.decode()}, 201
+            else:
+                return {}, 404
+        except Exception as e:
+            return {}, 500 
+        
