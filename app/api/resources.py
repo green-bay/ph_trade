@@ -11,7 +11,7 @@ from app.models.models import User
 from .security import require_auth
 from . import api_rest
 from app.db import db,bcrypt
-
+import uuid
 
 class SecureResource(Resource):
     """ Calls require_auth decorator on all requests """
@@ -86,9 +86,10 @@ class RegisterUser(Resource):
                 )
                 db.session.add(user)
                 db.session.commit()
-                auth_token = user.encode_auth_token(user.id)
+                auth_token = user.encode_auth_token(user.uuid)
                 return {'auth_token': auth_token.decode()}, 201
             except Exception as e:
+                raise e
                 return {'message': e.message}, 401
         else:
             return {}, 202 #user exists
@@ -100,11 +101,45 @@ class LoginUser(Resource):
         try:
             user = User.query.filter_by(email=post_data.get('email')).first()
             if user and bcrypt.check_password_hash(user.password, post_data.get('password')):
-                auth_token = user.encode_auth_token(user.id)
+                auth_token = user.encode_auth_token(user.uuid)
                 if auth_token:
                     return {'auth_token': auth_token.decode()}, 201
             else:
                 return {}, 404
         except Exception as e:
             return {}, 500 
+
+    def get(self):
+        """Get user status"""
+        bearer = request.headers.get('Authorization')
+        try:
+            auth_token = bearer.split(" ")[1]
+            if auth_token:
+                resp = User.decode_auth_token(auth_token)
+                user = User.query.filter_by(uuid=resp).first()
+                if user:
+                    return dict(data=dict(email=user.email, admin=user.admin)), 200
+                return {},401
+            else:
+                return {},401
+        except Exception as e:
+            return {}, 500 
         
+@api_rest.route('/logout')
+class LogoutUser(Resource):
+    def post(self):
+        bearer = request.headers.get('Authorization')
+        try:
+            auth_token = bearer.split(" ")[1]
+            if auth_token:
+                resp = User.decode_auth_token(auth_token)
+                user = User.query.filter_by(uuid=resp).first()
+                if user:
+                    user.uuid = uuid.uuid1()
+                    db.session.commit()
+                    return {}, 200
+                return {},401
+            else:
+                return {},401
+        except Exception as e:
+            return {}, 500 
