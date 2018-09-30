@@ -4,6 +4,8 @@
 	<router-link to="/">Tablica Ogłoszeń</router-link>
 	<span> | </span>
 	<router-link to="/api">Piaskownica</router-link>
+	<span> | </span>
+	<router-link to="/login">Login</router-link>
     </div>
     <!--<HelloWorld msg="Welcome to Your Vue.js App"/>-->
     <router-view />

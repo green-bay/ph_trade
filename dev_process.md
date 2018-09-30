@@ -8,3 +8,9 @@ Tue 11 Sep 21:32:49 CEST 2018
 -----------------------------
 
 Created python environment with pipenv. To activate it enter `pipenv shell`
+
+
+Sun 30 Sep 23:32:24 CEST 2018
+-----------------------------
+
+Struggle with handling jwt expired on client.

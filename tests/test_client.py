@@ -1,5 +1,6 @@
 import pytest
 import json
+import time
 
 # helper functions
 def _register_user(app, email, password):
@@ -85,6 +86,14 @@ def test_user_status(app):
     assert data.get('data', None) is not None
     assert data['data'].get('email') == test_email
     assert type(data['data'].get('admin')) == bool
+
+def test_token_expierd(app):
+    _register_user(app, test_email, test_passw)
+    auth_token = _login_user(app, test_email, test_passw, True)
+    time.sleep(6)
+    response = _get_user_status(app, 'Bearer: %s' % auth_token) 
+    data = json.loads(response.data.decode())
+    assert response.status_code == 401
 
 def test_user_logout(app):
     _register_user(app, test_email, test_passw)

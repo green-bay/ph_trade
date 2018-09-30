@@ -107,23 +107,24 @@ class LoginUser(Resource):
             else:
                 return {}, 404
         except Exception as e:
-            return {}, 500 
+            current_app.logger.debug(str(e))
+            return {'exception': str(e)}, 500 
 
     def get(self):
         """Get user status"""
         bearer = request.headers.get('Authorization')
         try:
             auth_token = bearer.split(" ")[1]
-            if auth_token:
-                resp = User.decode_auth_token(auth_token)
-                user = User.query.filter_by(uuid=resp).first()
+            uuid = User.decode_auth_token(auth_token)
+            if uuid:
+                user = User.query.filter_by(uuid=uuid).first()
                 if user:
                     return dict(data=dict(email=user.email, admin=user.admin)), 200
                 return {},401
             else:
                 return {},401
         except Exception as e:
-            return {}, 500 
+            return {}, 401 
         
 @api_rest.route('/logout')
 class LogoutUser(Resource):
@@ -131,8 +132,8 @@ class LogoutUser(Resource):
         bearer = request.headers.get('Authorization')
         try:
             auth_token = bearer.split(" ")[1]
-            if auth_token:
-                resp = User.decode_auth_token(auth_token)
+            resp = User.decode_auth_token(auth_token)
+            if resp:
                 user = User.query.filter_by(uuid=resp).first()
                 if user:
                     user.uuid = uuid.uuid1()
@@ -142,4 +143,5 @@ class LogoutUser(Resource):
             else:
                 return {},401
         except Exception as e:
-            return {}, 500 
+            current_app.logger.debug(str(e))
+            return {}, 401 
