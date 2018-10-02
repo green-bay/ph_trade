@@ -7,17 +7,13 @@ def test_config(app):
 
 def test_encode_auth_token(app):
     with app.app_context():
-        user = User(email="test@test.pl",password="test")
-        db.session.add(user)
-        db.session.commit()
+        user = User.create(email="test@test.pl",password="test")
         auth_token = user.encode_auth_token(user.id)
         assert isinstance(auth_token, bytes)
 
 def test_decode_auth_token(app):
     with app.app_context():
-        user = User(email="test@test.pl",password="test")
-        db.session.add(user)
-        db.session.commit()
+        user = User.create(email="test@test.pl",password="test")
         auth_token = user.encode_auth_token(user.uuid)
         assert isinstance(auth_token, bytes)
         assert User.decode_auth_token(auth_token) == str(user.uuid)

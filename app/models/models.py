@@ -1,15 +1,14 @@
 import datetime
 import jwt
 from flask import current_app as app
-from app.db import db, bcrypt
+from app.db import db, bcrypt, CRUDMixin, TimestampMixin
 import uuid
 from sqlalchemy.dialects.postgresql import UUID
 
 
-class User(db.Model):
+class User(db.Model, CRUDMixin, TimestampMixin):
     __tablename__ = 'users'
 
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     email = db.Column(db.String(255), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
     admin = db.Column(db.Boolean, nullable=False, default=False)
@@ -30,8 +29,6 @@ class User(db.Model):
         """
         try:
             payload = {
-                'exp': datetime.datetime.utcnow() + datetime.timedelta(days=0, seconds=5),
-                'iat': datetime.datetime.utcnow(),
                 'sub': str(uuid)
             }
             return jwt.encode(
