@@ -13,6 +13,7 @@ class User(db.Model, CRUDMixin, TimestampMixin):
     password = db.Column(db.String(255), nullable=False)
     admin = db.Column(db.Boolean, nullable=False, default=False)
     uuid = db.Column(UUID(as_uuid=True), nullable=False, unique=True)
+    classifieds = db.relationship("ClassifiedAd", backref='user',lazy=True)
 
     def __init__(self, email, password, admin=False):
         self.email = email
@@ -58,4 +59,6 @@ class User(db.Model, CRUDMixin, TimestampMixin):
             return 'Signature expired. Login again, please'
         except jwt.InvalidTokenError:
             return 'Token invalid. Login again, please'
+
+
 

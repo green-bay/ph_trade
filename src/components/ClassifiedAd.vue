@@ -4,8 +4,8 @@
 	<div class='classified-ad-details'>
 	    <h4 class='ad-category'>{{ ad.category }}</h4>
 	    <h3 class='ad-title'>{{ ad.name }}</h3>
-	    <p class='ad-description'>{{ ad.desc }}</p>
-	    <p class='ad-publisher'>{{ ad.publisher }}</p>
+	    <p class='ad-description'>{{ ad.description }}</p>
+	    <p class='ad-publisher'>{{ ad.created_at }}, {{ ad.publisher }}</p>
 	</div>
     </div>
 </template>

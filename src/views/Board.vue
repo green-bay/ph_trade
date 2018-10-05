@@ -120,10 +120,9 @@ export default {
 	    if(valid){
 	        const payload = {
 		   name: this.addAdForm.name,
-		   desc: this.addAdForm.desc,
 		   category: this.addAdForm.category,
 		   publisher: this.addAdForm.publisher,
-		   image: this.addAdForm.image
+		   description: this.addAdForm.desc
 	        };
 		this.postAd(payload);
 	    }

@@ -1,7 +1,7 @@
 from functools import wraps
 from flask import request, current_app
 from flask_restplus import abort
-from app.models.models import User
+from app.models.users import User
 
 
 def require_auth(func):
