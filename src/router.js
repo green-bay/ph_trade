@@ -1,27 +1,33 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import backend from '@/backend'
+
 
 const ifAuthenticated = (to, from, next) => {
-    if (localStorage.getItem('user-token')) {
+    var x = backend.isAuthenticated();
+    x.then(function(resp){
 	next();
-	return
-    }
-    next('/login')
+    })
+    .catch(err => {
+	next('/login')
+    })
 }
 
 const ifNotAuthenticated = (to, from, next) => {
-    if (!localStorage.getItem('user-token')) {
+    var x = backend.isAuthenticated();
+    x.then(resp => {
+	next('/account')
+    })
+    .catch(err => {
 	next();
-	return
-    }
-    next('/')
+    })
 }
 
 const routeOptions = [
 	{ path: '/', component: 'Board' },
 	{ path: '/api', component: 'Api' },
-    	{ path: '/account', component: 'Account', beforeEnter: ifAuthenticated },
-    	{ path: '/login', component: 'Login', beforeEnter: ifNotAuthenticated }
+    	{ path: '/account', component: 'Account', beforeEnter: ifAuthenticated},  
+    	{ path: '/login', component: 'Login', beforeEnter: ifNotAuthenticated}  
 ]
 
 const routes = routeOptions.map( route => {

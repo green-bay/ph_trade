@@ -1,12 +1,14 @@
 import datetime
 import jwt
 from flask import current_app as app
+from flask_login import UserMixin
 from app.db import db, bcrypt, CRUDMixin, TimestampMixin
+from app import login_manager
 import uuid
 from sqlalchemy.dialects.postgresql import UUID
 
 
-class User(db.Model, CRUDMixin, TimestampMixin):
+class User(db.Model, CRUDMixin, TimestampMixin, UserMixin):
     __tablename__ = 'users'
 
     email = db.Column(db.String(255), unique=True, nullable=False)
@@ -61,4 +63,6 @@ class User(db.Model, CRUDMixin, TimestampMixin):
             return 'Token invalid. Login again, please'
 
 
-
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))

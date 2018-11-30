@@ -6,6 +6,7 @@ part of flask-restplus
 from datetime import datetime
 from flask import request, current_app
 from flask_restplus import Resource, abort
+from flask_login import current_user, login_user, logout_user
 from app.models.users import User
 from app.models.classifieds import ClassifiedAd, ClassifiedTags
 
@@ -77,11 +78,22 @@ class LoginUser(Resource):
         post_data = request.get_json()
         user = User.query.filter_by(email=post_data.get('email')).first()
         if user and bcrypt.check_password_hash(user.password, post_data.get('password')):
-            auth_token = user.encode_auth_token(user.uuid)
-            if auth_token:
-                return {'auth_token': auth_token.decode()}, 201
+            login_user(user, remember=False)
+            return {'user_name': user.email}, 201
         else:
             return abort(404)
+
+    def get(self):
+        if current_user.is_authenticated:
+            return {'message': 'User logged in'}, 202
+        else:
+            return {}, 200
+
+@api_rest.route('/user/is_authenticated')
+class UserAuthenticated(SecureResource):
+    def get(self):
+        return {}, 200
+
 
 @api_rest.route('/user/status')
 class UserStatus(SecureResource):
@@ -92,6 +104,6 @@ class UserStatus(SecureResource):
         
 @api_rest.route('/logout')
 class LogoutUser(SecureResource):
-    def post(self, user):
-        user.write(uuid = uuid.uuid1())
+    def get(self):
+        logout_user()
         return {}, 200

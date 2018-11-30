@@ -19,6 +19,7 @@ flask-bcrypt = "*"
 pyjwt = "*"
 python-dotenv = "*"
 flask-migrate = "*"
+flask-login = "*"
 
 [requires]
 python_version = "3.6"
