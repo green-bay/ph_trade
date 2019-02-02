@@ -1,22 +1,43 @@
 <template>
-  <div id="app">
-    <div id="nav">
-    <router-link to="/">PH_TRADE</router-link>
-	<span> | </span>
-	<router-link to="/board">Tablica Ogłoszeń</router-link>
-	<span> | </span>
-	<router-link to="/api">Piaskownica</router-link>
-	<span> | </span>
-	<router-link to="/login">Login</router-link>
-    </div>
+  <v-app>
+    <v-toolbar>
+    		<v-spacer></v-spacer>
+    		<v-toolbar-items>
+    			<v-btn flat>
+	    	    	<router-link to="/">PH_TRADE</router-link>
+	    	    </v-btn>
+	    	    <v-btn flat>
+	    	    	<router-link to="/board">Tablica Ogłoszeń</router-link>
+	    	    </v-btn>
+	    	    <v-btn flat>
+					<router-link to="/api">Piaskownica</router-link>
+				</v-btn>
+				<v-btn flat>
+					<router-link to="/login">Login</router-link>
+				</v-btn>
+			</v-toolbar-items>
+	</v-toolbar>
     <!--<HelloWorld msg="Welcome to Your Vue.js App"/>-->
-    <router-view />
-  </div><!-- app -->
+    <v-content>
+    	<v-container>
+    		<v-layout row wrap>
+    			<v-flex>
+			        <v-card>
+			          <v-card-text><router-view /></v-card-text>
+			        </v-card>
+			    </v-flex>    			
+    		</v-layout>
+    	</v-container>
+    </v-content>
+    <v-footer class="pa-3">
+	    <v-spacer></v-spacer>
+	    <div>PH_TRADE &copy; {{ new Date().getFullYear() }}</div>
+	  </v-footer>
+  </v-app>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
-import '@vue/ui/dist/vue-ui.css'
 
 export default {
   name: 'app',
@@ -25,14 +46,3 @@ export default {
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

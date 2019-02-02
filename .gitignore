@@ -24,3 +24,4 @@ tags
 .pytest_cache
 .project
 .pydevproject
+__pycache__

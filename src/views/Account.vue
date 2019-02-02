@@ -2,7 +2,7 @@
     <div>
 	<h1>Restricted Area</h1>
 	<h2>User account vue; not implemented yet</h2>
-	<VueButton label="Logout" @click="logout" />
+	<v-btn label="Logout" @click="logout" />
     </div>
 </template>
 

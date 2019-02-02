@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import VueUi from '@vue/ui'
+import 'babel-polyfill'
+import Vuetify from 'vuetify/lib'
+import 'vuetify/src/stylus/app.styl'
 
 Vue.config.productionTip = false
 
-Vue.use(VueUi)
+Vue.use(Vuetify)
 
 new Vue({
     router,

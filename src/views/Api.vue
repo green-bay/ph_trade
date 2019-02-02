@@ -2,7 +2,7 @@
     <div class='about'>
 	<h1>Backend api demo ssuf</h1>
 	<p>Click to get data</p>
-	<VueButton @click.prevent="fetchResource">Fetch Data</VueButton><br/>
+	<v-btn @click.prevent="fetchResource">Fetch Data</v-btn><br/>
 	<a href="" @click.prevent="fetchSecureResource">Fetch Secured Resource</a>
 	<h4>Results</h4>
 	<p v-for="r in resources" :key="r.timestamp">

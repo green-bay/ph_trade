@@ -1,19 +1,15 @@
 <template>
-    <div>
-	<h1>Login</h1>
-	<form class="login" @submit.prevent="login">
-	    <p v-if="error" class='error'>{{ error }}</p>
-	    <VueFormField title="email" placeholder="email">
-		<VueInput v-model="email" />
-	    </VueFormField>
-	    <VueFormField title="Hasło" placeholder="Hasło">
-		<VueInput v-model="password" 
-			  icon-right="lock"
-			  type="password" />
-	    </VueFormField>
-	    <VueButton class="big" label="Sign In" type="submit" />
-	</form>
-    </div>
+	<div>
+	    <h1>Login</h1>
+		<v-form class="login" @submit.prevent="login">
+		    <p v-if="error" class='error'>{{ error }}</p>
+		    <v-input v-model="email">Email</v-input>
+		    <v-input v-model="password" 
+				  icon-right="lock"
+				  type="password">Hasło</v-input>
+		    <v-btn class="big" label="Sign In" type="submit" />
+		</v-form>
+	</div>    
 </template>
 
 <script>
