@@ -6,34 +6,35 @@ import backend from '@/backend'
 const ifAuthenticated = (to, from, next) => {
     var x = backend.isAuthenticated();
     x.then(function(resp){
-	next();
+    	next();
     })
     .catch(err => {
-	next('/login')
+    	next('/login')
     })
 }
 
 const ifNotAuthenticated = (to, from, next) => {
     var x = backend.isAuthenticated();
     x.then(resp => {
-	next('/account')
+    	next('/account')
     })
     .catch(err => {
-	next();
+    	next();
     })
 }
 
 const routeOptions = [
-	{ path: '/', component: 'Board' },
+	{ path: '/', component: 'Home' },
+	{ path: '/board', component: 'Board' },
 	{ path: '/api', component: 'Api' },
-    	{ path: '/account', component: 'Account', beforeEnter: ifAuthenticated},  
-    	{ path: '/login', component: 'Login', beforeEnter: ifNotAuthenticated}  
+    { path: '/account', component: 'Account', beforeEnter: ifAuthenticated},  
+    { path: '/login', component: 'Login', beforeEnter: ifNotAuthenticated}  
 ]
 
 const routes = routeOptions.map( route => {
     return {
-	...route,
-	component: () => import(`@/views/${route.component}.vue`)
+    	...route,
+    	component: () => import(`@/views/${route.component}.vue`)
     }
 })
 

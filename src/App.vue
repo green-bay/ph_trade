@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <div id="nav">
-	<router-link to="/">Tablica Ogłoszeń</router-link>
+    <router-link to="/">PH_TRADE</router-link>
+	<span> | </span>
+	<router-link to="/board">Tablica Ogłoszeń</router-link>
 	<span> | </span>
 	<router-link to="/api">Piaskownica</router-link>
 	<span> | </span>
