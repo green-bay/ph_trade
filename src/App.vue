@@ -19,15 +19,7 @@
 	</v-toolbar>
     <!--<HelloWorld msg="Welcome to Your Vue.js App"/>-->
     <v-content>
-    	<v-container>
-    		<v-layout row wrap>
-    			<v-flex>
-			        <v-card>
-			          <v-card-text><router-view /></v-card-text>
-			        </v-card>
-			    </v-flex>    			
-    		</v-layout>
-    	</v-container>
+    	<router-view />    	
     </v-content>
     <v-footer class="pa-3">
 	    <v-spacer></v-spacer>
