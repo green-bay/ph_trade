@@ -1,40 +1,32 @@
 <template>
   <v-app>
     <v-toolbar>
-    		<v-spacer></v-spacer>
-    		<v-toolbar-items>
-    			<v-btn flat>
-	    	    	<router-link to="/">PH_TRADE</router-link>
-	    	    </v-btn>
-	    	    <v-btn flat>
-	    	    	<router-link to="/board">Tablica Ogłoszeń</router-link>
-	    	    </v-btn>
-	    	    <v-btn flat>
-					<router-link to="/api">Piaskownica</router-link>
-				</v-btn>
-				<v-btn flat>
-					<router-link to="/login">Login</router-link>
-				</v-btn>
-			</v-toolbar-items>
-	</v-toolbar>
+      <v-spacer></v-spacer>
+      <v-toolbar-items>
+        <v-btn flat to="/">PH_TRADE </v-btn>
+        <v-btn flat to="/board">Tablica Ogłoszeń</v-btn>
+        <v-btn to="/api" flat>Piaskownica </v-btn>
+        <v-btn flat to="/login">Login</v-btn>
+      </v-toolbar-items>
+    </v-toolbar>
     <!--<HelloWorld msg="Welcome to Your Vue.js App"/>-->
     <v-content>
-    	<router-view />    	
+      <router-view />
     </v-content>
     <v-footer class="pa-3">
-	    <v-spacer></v-spacer>
-	    <div>PH_TRADE &copy; {{ new Date().getFullYear() }}</div>
-	  </v-footer>
+      <v-spacer></v-spacer>
+      <div>PH_TRADE &copy; {{ new Date().getFullYear() }}</div>
+    </v-footer>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from "./components/HelloWorld.vue";
 
 export default {
-  name: 'app',
+  name: "app",
   components: {
     HelloWorld
   }
-}
+};
 </script>
