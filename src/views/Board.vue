@@ -1,3 +1,4 @@
+<!--Board View-->
 <template>
   <v-layout>
     <v-flex xs12>
@@ -11,11 +12,27 @@
             </div>
           </v-card>
         </v-flex>
-        <v-flex md10>
-          <h1>Some title</h1>
-          <ClassifiedForm v-on:ad-posted="ads.push($event)" />
-          <Classifiedad v-for="(ad, ix) in ads" :key="ix" v-bind:ad="ad" />
-        </v-flex>
+        <transition name="fade" mode="out-in">
+          <v-flex md10 v-if="addAd">
+            <v-card height="100%">
+              <div class="text-xs-center">
+                <ClassifiedForm v-on:ad-posted="postAd" />
+              </div>
+            </v-card>
+          </v-flex>
+          <v-flex md10 v-else>
+            <v-card height="100%">
+              <div class="text-xs-center">
+                <h1>Some title</h1>
+                <Classifiedad
+                  v-for="(ad, ix) in ads"
+                  :key="ix"
+                  v-bind:ad="ad"
+                />
+              </div>
+            </v-card>
+          </v-flex>
+        </transition>
       </v-layout>
     </v-flex>
   </v-layout>
@@ -34,7 +51,8 @@ export default {
   },
   data: function() {
     return {
-      ads: []
+      ads: [],
+      addAd: false
     };
   },
   methods: {
@@ -48,15 +66,9 @@ export default {
           this.error = error;
         });
     },
-    postAd: function() {
-      $backend
-        .postAd(payload)
-        .then(ad => {
-          this.ads.push(ad);
-        })
-        .catch(error => {
-          this.error = error;
-        });
+    postAd: function(ad) {
+      this.ads.push(ad);
+      this.addAd = false;
     }
   },
   created: function() {

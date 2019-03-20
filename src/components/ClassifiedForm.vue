@@ -1,8 +1,8 @@
+<!--ClassifiedForm Component-->
 <template>
   <div>
-    <v-dialog title="Nowe ogłoszenie" @close="addAd = false">
-      <p>Dialog</p>
-    </v-dialog>
+    <p>Nowe Ogłoszenie</p>
+    <v-btn round outline @click.native.prevent="postAd()">Zamknij</v-btn>
   </div>
 </template>
 
@@ -27,14 +27,15 @@ export default {
   },
   methods: {
     postAd: function(payload) {
-      $backend
+      this.$emit("ad-posted", "lol");
+      /*$backend
         .postAd(payload)
         .then(ad => {
           this.$emit("ad-posted", ad);
         })
         .catch(error => {
           this.error = error;
-        });
+        });*/
     },
     checkForm: function(e) {
       e.preventDefault();
