@@ -29,6 +29,9 @@ class ClassifiedAds(Resource):
 
     def post(self):
         post = request.json
+        categories = post.pop('categories')
+        tags = ClassifiedTags.query.filter(ClassifiedTags.name.in_(categories)).all()
+        post['categories'] = tags
         ad = ClassifiedAd.create(**post)
         return ad.as_dict(), 201
 

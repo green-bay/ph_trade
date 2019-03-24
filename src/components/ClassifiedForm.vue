@@ -64,8 +64,14 @@ export default {
   },
   methods: {
     postAd: function() {
+      let payload = {
+        name: this.addAdForm.name,
+        description: this.addAdForm.desc,
+        categories: this.addAdForm.categories,
+        publisher: "anonymous" //we will get it from user
+      };
       $backend
-        .postAd(this.addAdForm)
+        .postAd(payload)
         .then(ad => {
           this.$emit("ad-posted", ad);
         })
