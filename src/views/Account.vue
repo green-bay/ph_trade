@@ -20,9 +20,12 @@
                   v-for="item in bmenu.items"
                   :key="item.name"
                   @click=""
+                  :to="{ name: 'modelRoute', params: { model: item.name } }"
                 >
                   <v-list-tile-content>
-                    <v-list-tile-title>{{ item.name }}</v-list-tile-title>
+                    <v-list-tile-title>
+                      {{ item.name }}
+                    </v-list-tile-title>
                   </v-list-tile-content>
                 </v-list-tile>
               </v-list-group>
@@ -32,7 +35,8 @@
         </v-flex>
         <v-flex md10>
           <v-card height="100%">
-            <h1>Backend</h1>
+            <h1>{{ $route.params.model }}</h1>
+            <router-view></router-view>
           </v-card>
         </v-flex>
       </v-layout>
