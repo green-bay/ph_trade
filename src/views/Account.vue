@@ -20,7 +20,10 @@
                   v-for="item in bmenu.items"
                   :key="item.name"
                   @click=""
-                  :to="{ name: 'modelRoute', params: { model: item.name } }"
+                  :to="{
+                    name: 'modelRoute',
+                    params: { model: item.name.toLowerCase() }
+                  }"
                 >
                   <v-list-tile-content>
                     <v-list-tile-title>

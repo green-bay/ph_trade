@@ -110,3 +110,20 @@ class LogoutUser(SecureResource):
     def get(self):
         logout_user()
         return {}, 200
+
+@api_rest.route('/models/<model>')
+class GetModel(SecureResource):
+    def get(self, model):
+        models = {'ads': ClassifiedAd, 
+                'categories': ClassifiedTags,
+                'users': User}
+        if not model in models:
+            return abort(404)
+        res = []
+        for _row in models[model].query.all():
+            row = _row.__dict__
+            row.pop('_sa_instance_state')
+            res.append(row)
+        return {'content': res}
+
+
