@@ -5,7 +5,7 @@ part of flask-restplus
 
 from datetime import datetime
 from flask import request, current_app
-from flask_restplus import Resource, abort
+from flask_restplus import Resource, abort, marshal, fields
 from flask_login import current_user, login_user, logout_user
 from app.models.users import User
 from app.models.classifieds import ClassifiedAd, ClassifiedTags
@@ -111,19 +111,37 @@ class LogoutUser(SecureResource):
         logout_user()
         return {}, 200
 
+cat_fields = {
+    'id': fields.Raw,
+    'name': fields.String
+}
+
+user_fields = {
+    'id': fields.Raw,
+    'name': fields.String(attribute='email'),
+    'mail': fields.String(attribute='email'),
+    'password': fields.String
+}
+
+ads_fields = {
+    'id': fields.Raw,
+    'name': fields.String,
+    'categories': fields.Nested(cat_fields),
+    'phone': fields.String,
+    'email': fields.String,
+    'description': fields.String
+}
+
 @api_rest.route('/models/<model>')
 class GetModel(SecureResource):
     def get(self, model):
-        models = {'ads': ClassifiedAd, 
-                'categories': ClassifiedTags,
-                'users': User}
+        models = {'ads': (ClassifiedAd, ads_fields), 
+                'categories': (ClassifiedTags, cat_fields),
+                'users': (User, user_fields)}
         if not model in models:
             return abort(404)
-        res = []
-        for _row in models[model].query.all():
-            row = _row.__dict__
-            row.pop('_sa_instance_state')
-            res.append(row)
-        return {'content': res}
+        db_model, model_fields = models[model]
+        return {'content': marshal(db_model.query.all(), model_fields),
+                'headers': list(model_fields.keys())}, 200
 
 
