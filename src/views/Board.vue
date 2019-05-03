@@ -2,7 +2,7 @@
 <template>
   <v-layout>
     <v-flex xs12>
-      <v-layout align-space-around fill-height>
+      <v-layout align-space-around fill-height row wrap>
         <v-flex md2>
           <v-card height="100%">
             <div class="text-xs-center">
@@ -24,11 +24,9 @@
             <v-card height="100%">
               <div class="text-xs-center">
                 <h1>Some title</h1>
-                <Classifiedad
-                  v-for="(ad, ix) in ads"
-                  :key="ix"
-                  v-bind:ad="ad"
-                />
+                <v-layout row wrap align-center justify-center>
+                  <Classifiedad v-for="ad in ads" :key="ad.id" v-bind:ad="ad" />
+                </v-layout>
               </div>
             </v-card>
           </v-flex>
@@ -67,7 +65,7 @@ export default {
         });
     },
     postAd: function(ad) {
-      this.ads.push(ad);
+      if (ad) this.ads.push(ad);
       this.addAd = false;
     }
   },

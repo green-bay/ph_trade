@@ -68,5 +68,8 @@ export default {
       .catch(err => {
         return Promise.reject(err);
       });
+  },
+  getAdAttrs() {
+    return $axios.get("ad/attrs").then(response => response.data);
   }
 };

@@ -55,14 +55,30 @@ export default {
         desc: "",
         category: "",
         categories: [],
-        categories_set: ["susz", "wiecha", "ziarno", "cbd"],
+        categories_set: [],
         publisher: "",
         image: "",
         errors: []
       }
     };
   },
+  created: function() {
+    return this.getAttrs();
+  },
   methods: {
+    getAttrs: function() {
+      $backend
+        .getAdAttrs()
+        .then(res => {
+          let cats = res.cats.map(cat => {
+            return cat.name;
+          });
+          this.addAdForm.categories_set = cats;
+        })
+        .catch(error => {
+          this.error = error;
+        });
+    },
     postAd: function() {
       let payload = {
         name: this.addAdForm.name,

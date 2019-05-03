@@ -20,21 +20,6 @@ class SecureResource(Resource):
     method_decorators = [require_auth]
 
 
-@api_rest.route('/ads')
-class ClassifiedAds(Resource):
-
-    def get(self):
-        res = ClassifiedAd.get_all()
-        return res, 200
-
-    def post(self):
-        post = request.json
-        categories = post.pop('categories')
-        tags = ClassifiedTags.query.filter(ClassifiedTags.name.in_(categories)).all()
-        post['categories'] = tags
-        ad = ClassifiedAd.create(**post)
-        return ad.as_dict(), 201
-
 
 @api_rest.route('/resource/<string:resource_id>')
 class ResourceOne(Resource):
@@ -143,5 +128,26 @@ class GetModel(SecureResource):
         db_model, model_fields = models[model]
         return {'content': marshal(db_model.query.all(), model_fields),
                 'headers': list(model_fields.keys())}, 200
+
+@api_rest.route('/ads')
+class ClassifiedAds(Resource):
+
+    def get(self):
+        res = marshal(ClassifiedAd.get_all(), ads_fields)
+        return res, 200
+
+    def post(self):
+        post = request.json
+        categories = post.pop('categories')
+        tags = ClassifiedTags.query.filter(ClassifiedTags.name.in_(categories)).all()
+        post['categories'] = tags
+        ad = ClassifiedAd.create(**post)
+        return marshal(ad, ads_fields), 201
+    
+@api_rest.route('/ad/attrs')
+class ClasssifiedAdsAttrs(Resource):
+    
+    def get(self):
+        return {'cats': marshal(ClassifiedTags.get_all(), cat_fields)}, 200
 
 
