@@ -16,7 +16,10 @@
           <v-flex md10 v-if="addAd">
             <v-card height="100%">
               <div class="text-xs-center">
-                <ClassifiedForm v-on:ad-posted="postAd" />
+                <ClassifiedForm
+                  @ad-posted="postAd"
+                  @ad-post-cancel="postCancel"
+                />
               </div>
             </v-card>
           </v-flex>
@@ -65,7 +68,12 @@ export default {
         });
     },
     postAd: function(ad) {
-      if (ad) this.ads.push(ad);
+      if (ad) {
+        this.ads.push(ad);
+      }
+      this.addAd = false;
+    },
+    postCancel: function() {
       this.addAd = false;
     }
   },

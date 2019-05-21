@@ -21,7 +21,7 @@
           <tr>
             <th
               v-for="header in props.headers"
-              v-if="header.value != 'id'"
+              v-show="header.value != 'id'"
               :key="header.text"
               :class="[
                 'column sortable',
@@ -42,7 +42,7 @@
           >
             <td
               v-for="header in props.item.headers"
-              v-if="header.value != 'id'"
+              v-show="header.value != 'id'"
               :key="header.text"
             >
               {{ props.item.data[header.value] }}

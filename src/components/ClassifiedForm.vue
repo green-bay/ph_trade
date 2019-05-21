@@ -97,7 +97,7 @@ export default {
       this.close();
     },
     close: function() {
-      this.$emit("ad-posted");
+      this.$emit("ad-post-cancel");
     },
     checkForm: function(e) {
       e.preventDefault();
