@@ -27,6 +27,9 @@ export default {
   postAd(payload) {
     return $axios.post("ads", payload).then(response => response.data);
   },
+  postCat(payload) {
+    return $axios.post("ad/attrs", payload).then(response => response.data);
+  },
   fetchResource() {
     return $axios.get("resource/xxx").then(response => response.data);
   },

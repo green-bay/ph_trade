@@ -50,6 +50,13 @@
           </tr>
         </template>
       </v-data-table>
+      <v-btn
+        v-if="$route.params.form"
+        round
+        outline
+        @click.native.prevent="showForm()"
+        >Dodaj</v-btn
+      >
     </div>
   </v-card>
 </template>
@@ -105,6 +112,9 @@ export default {
         this.pagination.sortBy = column;
         this.pagination.descending = false;
       }
+    },
+    showForm: function() {
+      this.$emit("show-form", this.$route.params.form);
     }
   }
 };

@@ -23,4 +23,4 @@ class ClassifiedTags(db.Model, CRUDMixin):
 adds_tags_rel = db.Table('ads_tags_rel', db.Model.metadata,
         db.Column('ad_id', db.Integer, db.ForeignKey('classified_ad.id')),
         db.Column('tag_id', db.Integer, db.ForeignKey('classified_tags.id'))
-            )
+)

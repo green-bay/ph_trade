@@ -99,20 +99,6 @@ export default {
     close: function() {
       this.$emit("ad-post-cancel");
     },
-    checkForm: function(e) {
-      e.preventDefault();
-      const valid = true;
-      this.addAd = false;
-      if (valid) {
-        const payload = {
-          name: this.addAdForm.name,
-          category: this.addAdForm.category,
-          publisher: this.addAdForm.publisher,
-          description: this.addAdForm.desc
-        };
-        this.postAd(payload);
-      }
-    },
     removeCat: function(item) {
       this.addAdForm.categories.splice(
         this.addAdForm.categories.indexOf(item),

@@ -149,5 +149,10 @@ class ClasssifiedAdsAttrs(Resource):
     
     def get(self):
         return {'cats': marshal(ClassifiedTags.get_all(), cat_fields)}, 200
+    
+    def post(self):
+        post = request.json
+        attr = ClassifiedTags.create(**post)
+        return marshal(attr, cat_fields), 201
 
 

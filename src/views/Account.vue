@@ -22,7 +22,10 @@
                   @click=""
                   :to="{
                     name: 'modelRoute',
-                    params: { model: item.name.toLowerCase() }
+                    params: {
+                      model: item.name.toLowerCase(),
+                      form: item.form
+                    }
                   }"
                 >
                   <v-list-tile-content>
@@ -36,35 +39,65 @@
             <v-btn round outline @click="logout">Logout</v-btn>
           </v-card>
         </v-flex>
-        <v-flex md10>
-          <v-card height="100%">
-            <h1>{{ $route.params.model }}</h1>
-            <router-view></router-view>
-          </v-card>
-        </v-flex>
+        <transition name="fade" mode="out-in">
+          <v-flex md10 v-if="!showForm">
+            <v-card height="100%">
+              <h1>{{ $route.params.model }}</h1>
+              <router-view @show-form="showMeForm"></router-view>
+            </v-card>
+          </v-flex>
+          <v-flex md10 v-else>
+            <v-card height="100%">
+              <h1>{{ this.formName }}</h1>
+              <AdCategoryForm
+                v-if="formName == 'AdCategoryForm'"
+                @cat-posted="postCat"
+                @cat-post-cancel="postCat"
+              />
+            </v-card>
+          </v-flex>
+        </transition>
       </v-layout>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
+import AdCategoryForm from "../components/AdCategoryForm";
 import $backend from "../backend";
 
 export default {
   name: "userAccount",
+  components: {
+    AdCategoryForm
+  },
   data: function() {
     return {
       backendMenus: [
         {
           name: "Models",
-          items: [{ name: "Ads" }, { name: "Categories" }, { name: "Users" }]
+          items: [
+            { name: "Ads" },
+            { name: "Categories", form: "AdCategoryForm" },
+            { name: "Users" }
+          ]
         }
-      ]
+      ],
+      showForm: false,
+      formName: ""
     };
   },
   methods: {
     logout: function() {
       $backend.logoutUser().then(this.$router.push("/"));
+    },
+    showMeForm: function(formName) {
+      this.showForm = true;
+      this.formName = formName;
+    },
+    postCat: function() {
+      this.showForm = false;
+      this.formName = "Categories";
     }
   }
 };
